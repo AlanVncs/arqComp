@@ -1,29 +1,70 @@
-# Aritmética
-add   $d $s $t  # $d = $s + $t
-000000 
-sub   $d $s $t  # $d = $s - $t
-addu  $d $s $t  # $d = $s + $t
-subu  $d $s $t  # $d = $s - $t
-addi  $d $s 24  # $d = $s + 24
-addiu $d $s 24  # $d = $s + 24
+add   $d $s $t   # $d = $s + $t
+000000 sssss ttttt ddddd 00000 100000
+
+addu  $d $s $t   # $d = $s + $t
+000000 sssss ttttt ddddd 00000 100001
+
+sub   $d $s $t   # $d = $s - $t
+000000 sssss ttttt ddddd 00000 100010
+
+subu  $d $s $t   # $d = $s - $t
+000000 sssss ttttt ddddd 00000 100011
+
+addi  $t $s imm  # $t = $s + imm
+001000 sssss ttttt iiiiiiiiiiiiiiii
+
+addiu $t $s imm  # $t = $s + imm
+001001 sssss ttttt iiiiiiiiiiiiiiii
+
+
 
 # Lógica
-and   $d $s $t  # $d = $s & $t
-or    $d $s $t  # $d = $s | $t
-nor   $d $s $t  # $d = ¬($s | $t)
-andi  $d $s 24  # $d = $s & 24
-ori   $d $s 24  # $d = $s | 24
+and   $d $s $t   # $d = $s & $t
+000000 sssss ttttt ddddd 00000 100100
+
+nor   $d $s $t   # $d = ¬($s | $t)
+000000 sssss ttttt ddddd 00000 100111
+
+or    $d $s $t   # $d = $s | $t
+000000 sssss ttttt ddddd 00000 100101
+
+ori   $t $s imm  # $t = $s | imm
+001101 sssss ttttt iiiiiiiiiiiiiiii
+
+andi  $t $s imm  # $t = $s & imm
+001100 sssss ttttt iiiiiiiiiiiiiiii
 
 
-# Memória
-lw    $d 24($s) # $d = mem[$s + 24]
-sw    $d 24($s) # mem[$s + 24] = $d
-lhu   $d 24($s) # $d = mem[$s + 24]
-sh    $d 24($s) # mem[$s + 24] = $d
-lbu   $d 24($s) # $d = mem[$s + 24]
-sb    $d 24($s) # mem[$s + 24] = $d
-lui   $d 24     # $d = 24*(2^16)
+
+lui   $t imm     # $t = imm*(2^16)
+001111 ----- ttttt iiiiiiiiiiiiiiii
+
+lbu   $t imm($s) # $t = mem[$s + imm]
+100100 sssss ttttt iiiiiiiiiiiiiiii
+
+lhu   $t imm($s) # $t = mem[$s + imm]
+100101 sssss ttttt iiiiiiiiiiiiiiii
+
+lw    $t imm($s) # $t = mem[$s + imm]
+100011 sssss ttttt iiiiiiiiiiiiiiii
+
+sb    $t imm($s) # mem[$s + imm] = $t
+101000 sssss ttttt iiiiiiiiiiiiiiii
+
+sh    $t imm($s) # mem[$s + imm] = $t
+101001 sssss ttttt iiiiiiiiiiiiiiii
+
+sw    $t imm($s) # mem[$s + imm] = $t
+101011 sssss ttttt iiiiiiiiiiiiiiii
+
+
+
+
+
 
 # Desvio condicional
-beq   $d $s 24  # IF $d==$s THEN goto PC+4+24
-bne   $d $s 24  # IF $d!=$s THEN goto PC+4+24
+beq   $s $t imm  # IF $s==$t THEN goto PC+4+(imm*4)
+000100 sssss ttttt iiiiiiiiiiiiiiii
+
+bne   $s $t imm  # IF $d!=$s THEN goto PC+4+(imm*4)
+000101 sssss ttttt iiiiiiiiiiiiiiii
