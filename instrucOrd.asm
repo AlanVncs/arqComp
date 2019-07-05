@@ -93,6 +93,47 @@ sw    $t imm($s) # RAM[$s + imm] = $t
 
 
 
+# Teste 4
+addi $1 $0 0x # $1 = 42
+001000 00000 00001 1010101111001101 (0x2001abcd)
+
+sb    $t imm($s) # RAM[$s + imm] = $t
+101000 00000 00001 0000000000000010 (0xa0010002)
+101000 sssss ttttt iiiiiiiiiiiiiiii
+011 1011 0000 (40 -> 0x3b0)
+
+lw    $t imm($s) # $t = RAM[$s + imm]
+100011 00000 00010 0000000000000000 (0x8c020000)
+100011 sssss ttttt iiiiiiiiiiiiiiii
+110 1000 1100 (35 -> 0x68c)
+
+
+
+sh    $t imm($s) # RAM[$s + imm] = $t
+101001 sssss ttttt iiiiiiiiiiiiiiii
+011 1100 0000 (41 -> 0x3c0)
+
+sw    $t imm($s) # RAM[$s + imm] = $t
+101011 sssss ttttt iiiiiiiiiiiiiiii
+011 1101 0000 (43 -> 0x3d0)
+
+lw    $t imm($s) # $t = RAM[$s + imm]
+100011 00000 00010 0000000000000000 (0x8c020000)
+100011 sssss ttttt iiiiiiiiiiiiiiii
+110 1000 1100 (35 -> 0x68c)
+
+lbu   $t imm($s) # $t = RAM[$s + imm]
+100100 sssss ttttt iiiiiiiiiiiiiiii
+110 1001 1100 (36 -> 0x69c)
+
+lhu   $t imm($s) # $t = RAM[$s + imm]
+100101 sssss ttttt iiiiiiiiiiiiiiii
+110 1010 1100 (37 -> 0x6ac)
+
+
+
+
+
 # Teste 3
 addi $1 $0 42 # $1 = 42
 001000 00000 00001 0000000000101010   (0x2001002a)
@@ -104,18 +145,18 @@ sb    $t imm($s) # RAM[$s + imm] = $t
 101000 00000 00001 0000000000000001
 101000 sssss ttttt iiiiiiiiiiiiiiii
 
-
-sb    $t imm($s) # RAM[$s + imm] = $t
-101000 00000 00001 0000000000000007
-101000 sssss ttttt iiiiiiiiiiiiiiii
-
-
-sh    $t imm($s) # RAM[$s + imm] = $t
-101001 00000 00010 0000000000001000
-101001 sssss ttttt iiiiiiiiiiiiiiii
-011 1100 0000 (41 -> 0x3c0)
-
-sw    $t imm($s) # RAM[$s + imm] = $t
+1111101011001010
+sb    $t imm($s) 1111101011001010# RAM[$s + imm] = $t
+101000 00000 000011111010110010101 0000000000000007
+101000 sssss tttt1111101011001010t iiiiiiiiiiiiiiii
+1111101011001010
+1111101011001010
+sh    $t imm($s) 1111101011001010# RAM[$s + imm] = $t
+101001 00000 000111111010110010100 0000000000001000
+101001 sssss tttt1111101011001010t iiiiiiiiiiiiiiii
+011 1100 0000 (411111101011001010 -> 0x3c0)
+1111101011001010
+sw    $t imm($s) 1111101011001010# RAM[$s + imm] = $t
 101011 sssss ttttt iiiiiiiiiiiiiiii
 011 1101 0000 (43 -> 0x3d0)
 
