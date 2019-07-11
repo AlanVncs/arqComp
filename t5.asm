@@ -248,3 +248,41 @@ andi  $8 $1 69  # $t = 42 & 69
 ori   $9 $1 69  # $9 = $1 | 69
 001101 00001 01001 0000000001000101   (0x34290045)
 001101 sssss ttttt iiiiiiiiiiiiiiii
+
+
+
+
+
+#
+unsigned int mult(unsigned int x, unsigned int y){
+    if y == 0
+        return 0
+    else
+        return x + mult(y-1)
+}
+
+
+# unsigned int mult(unsiged int a, unsigned int b){
+#     if (b == 0) {
+#         return 0;
+#     else {
+#         return a + mult(b-1);
+#     }
+# }
+
+
+# Como não há addi com sinal, estes valores precisam ser carregados manualmente no respectivos registradores
+# $t6 = -1
+# $t7 = -4
+
+mult:       beq  $a1 $0 base	# if b == 0 then goto base
+            add  $sp $sp $t7	# "Aloca" 4 bytes na pilha
+            sw   $a1 0($sp)		# Salva b ($a1) na pilha
+            add  $a1 $a1 $t6	# Prepara $a1 pra próxima chamada ($a1--)
+            jal  mult			# Chamada recursiva
+			lw   $a1 0($sp)		# Restaura o valor de $a1
+			addi $sp $sp 4		# Restaura o endereço da pilha
+            add  $v0 $v0 $a0	# return = a + mult(b-1)
+            jr   $ra			# return to caller
+base:       addi $v0 $0 0		#
+            jr   $ra			# return 0;
