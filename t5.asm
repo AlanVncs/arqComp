@@ -31,80 +31,80 @@ nor   $d $s $t   # $d = ¬($s | $t)
 
 beq   $s $t imm  # IF $s==$t THEN goto PC+4+(imm*4)
 000100 sssss ttttt iiiiiiiiiiiiiiii
-000 0001 00100 (4 -> 0x24)
+000 0001 00100 (4 -> 0x24) 0x04
 
 bne   $s $t imm  # IF $d!=$s THEN goto PC+4+(imm*4)
 000101 sssss ttttt iiiiiiiiiiiiiiii
-000 0010 00100 (5 -> 0x44)
+000 0010 00100 (5 -> 0x44) 0x05
 
 
 
 
 addi  $t $s imm  # $t = $s + imm
 001000 sssss ttttt iiiiiiiiiiiiiiii
-110 0011 00000 (08 -> 0xC60)
+110 0011 00000 (08 -> 0xC60) 0x08
 
 addiu $t $s imm  # $t = $s + imm
 001001 sssss ttttt iiiiiiiiiiiiiiii
-110 0100 00000 (09 -> 0xC80)
+110 0100 00000 (09 -> 0xC80) 0x09
 
 andi  $t $s imm  # $t = $s & imm
 001100 sssss ttttt iiiiiiiiiiiiiiii
-110 0101 00000 (12 -> 0xCA0)
+110 0101 00000 (12 -> 0xCA0) 0x0c
 
 ori   $t $s imm  # $t = $s | imm
 001101 sssss ttttt iiiiiiiiiiiiiiii
-110 0110 00000 (13 -> 0xCC0)
+110 0110 00000 (13 -> 0xCC0) 0x0d
 
 
 
 
 lui   $t imm     # $t = imm*(2^16)
 001111 ----- ttttt iiiiiiiiiiiiiiii
-110 0111 00000 (15 -> 0xCE0)
+110 0111 00000 (15 -> 0xCE0) 0x0f
 
 
 
 
 lw    $t imm($s) # $t = RAM[$s + imm]
 100011 sssss ttttt iiiiiiiiiiiiiiii
-110 1000 11000 (35 -> 0xD18)
+110 1000 11000 (35 -> 0xD18) 0x23
 
 lbu   $t imm($s) # $t = RAM[$s + imm]
 100100 sssss ttttt iiiiiiiiiiiiiiii
-110 1001 11000 (36 -> 0xD38)
+110 1001 11000 (36 -> 0xD38) 0x24
 
 lhu   $t imm($s) # $t = RAM[$s + imm]
 100101 sssss ttttt iiiiiiiiiiiiiiii
-110 1010 11000 (37 -> 0xD58)
+110 1010 11000 (37 -> 0xD58) 0x25
 
 sb    $t imm($s) # RAM[$s + imm] = $t
 101000 sssss ttttt iiiiiiiiiiiiiiii
-011 1011 00000 (40 -> 0x760)
+011 1011 00000 (40 -> 0x760) 0x28
 
 sh    $t imm($s) # RAM[$s + imm] = $t
 101001 sssss ttttt iiiiiiiiiiiiiiii
-011 1100 00000 (41 -> 0x780)
+011 1100 00000 (41 -> 0x780) 0x29
 
 sw    $t imm($s) # RAM[$s + imm] = $t
 101011 sssss ttttt iiiiiiiiiiiiiiii
-011 1101 00000 (43 -> 0x7a0)
+011 1101 00000 (43 -> 0x7a0) 0x2b
 
 
 j     target
 000010 00000000000000000000000111 (0x08000007)
 000010 tttttttttttttttttttttttttt
-000 1110 00001 (02 -> 0x1c1)
+000 1110 00001 (02 -> 0x1c1) 0x02
 
 jal   target
 000011 00000000000000000000000001 (0x0c000001)
 000011 tttttttttttttttttttttttttt
-100 1111 00001 (03 -> 0x9e1)
+100 1111 00001 (03 -> 0x9e1) 0x03
 
 jr $s
 000000 11111 000000000000000 001000 (0x03e00008)
 000000 sssss 000000000000000 001000
-100 0000 00010 (0 -> 0x802)
+100 0000 00010 (0 -> 0x802) 0x00
 
 
 
